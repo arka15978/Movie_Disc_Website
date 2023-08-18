@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="new-room">
+    <div class="container">
+        <div class="new-room-card">
+            <div class="new-room-card-header">
+                    <a href="{{request.META.HTTP_REFERER}}">
+                        <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                    </a>
+                    <h3>Cancel</h3>
+            </div>
+            <div>
+                <form class="form" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="new-room-form-group">
+                        <p>Are you sure you want to delete "{{obj}}"?</p>
+                    </div>
+
+                    <div>
+                        <input class="btn btn--main" type="submit" value="Yes" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

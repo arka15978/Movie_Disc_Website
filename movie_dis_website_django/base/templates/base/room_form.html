@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="new-room">
+    <div class="container">
+    <div class="new-room-card">
+      <div class="new-room-card-header">
+          <a href="{{request.META.HTTP_REFERER}}">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          </a>
+          <h3>Create/Update Room</h3>
+      </div>
+      <div class="new-room-form">
+        <form class="form" action="" method="POST">
+          {% csrf_token %}
+
+          <div class="new-room-form-group">
+            <label for="room-movie">Enter a Movie</label>
+            <input required type="text" value="{{room.movie.name}}" name="movie" />
+          </div>
+
+
+          <div class="new-room-form-group">
+            <label for="room-name">Give your room a name!</label>
+            {{form.name}}
+          </div>
+
+          <div class="new-room-form-group">
+            <label for="room-desc">Give a brief decription</label>
+            {{form.description}}
+          </div>
+
+    
+
+
+          <div class="new-room-form-action">
+            <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Back</a>
+            <button class="btn btn--main" type="submit">Create Room</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+</div>
+{% endblock content %}

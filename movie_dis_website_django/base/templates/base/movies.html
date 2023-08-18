@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class = "page">
+  <div class="container">
+    <div class="movie-search-card">
+      <div class="movie-search-card-header">
+          <a href="{% url 'home-page' %}">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          </a>
+          <h4>Look for your favourite movies</h4>
+      </div>
+
+      <div class="movies-page">
+        <form action="" method="GET" class="header-search">
+          <label>
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input name="q" placeholder="Browse movies" />
+          </label>
+        </form>
+
+        <ul class="movie-list">
+          <li>
+            <a href="{% url 'search-movies' %}" class="active">All <span>{{movies.count}}</span></a>
+          </li>
+          {% for movie in movies %}
+          <li>
+            <a href="{% url 'home-page' %}?q={{movie.name}}">{{ movie.name }} <span>{{movie.room_set.all.count}}</span></a>
+          </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

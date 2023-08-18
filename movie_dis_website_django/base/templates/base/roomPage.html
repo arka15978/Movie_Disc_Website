@@ -1,0 +1,107 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <div class="container">
+    <!-- Room Start -->
+    <div class="part-card col-md-3" >
+      <h3 class="part-card-header">Participants <span>({{participants.count}} Joined)</span></h3>
+      <div class="part-list scroll">
+        {% for user in participants %}
+        <a href="{%  url 'user-profile' user.id %}" class="part">
+          <div class="avatar avatar--medium">
+            <img src="{{user.avatar.url}}" />
+          </div>
+          <p>
+            {{user.name}}
+            <span>@{{user.username}}</span>
+          </p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="room-card col-md-8">
+      <div class="room-header">
+        <div class="room-header-left">
+          <a href="{% url 'home-page' %}">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+          </a>
+          <h3>Movie Chat Room</h3>
+        </div>
+        {% if room.host == request.user %}
+        <div class="room-header-right">
+          <a href="{% url 'update-room' room.id %}">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+          <a href="{% url 'delete-room' room.id %}">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </div>
+        {% endif %}
+
+      </div>
+      <div class="room-box scroll">
+        <div class="room-box-header">
+          <div class="room-box-data">
+            <h3>{{room.name}}</h3>
+            <span>{{room.created|timesince}} ago</span>
+          </div>
+          <div class="room__hosted">
+            <p>Hosted By</p>
+            <a href="{% url 'user-profile' room.host.id %}" class="room__author">
+              <div class="avatar avatar--small">
+                <img src="{{room.host.avatar.url}}" />
+              </div>
+              <span>@{{room.host.username}}</span>
+            </a>
+          </div>
+          <span class="room-box-movie">{{room.movie}}</span>
+        </div>
+
+        <div class="room-chats">
+          <div class="room-messages scroll">
+
+
+            {% for message in room_messages %}
+            <div class="room-message">
+              <div class="room-message-header">
+                <div class="room-message-user">
+                  <a href="{% url 'user-profile' message.user.id %}" class="room-message-userInfo">
+                    <div class="avatar avatar--small">
+                      <img src="{{message.user.avatar.url}}" />
+                    </div>
+                    <span>@{{message.user.username}}</span>
+                  </a>
+                  <span>{{message.created|timesince}} ago</span>
+                </div>
+
+                {% if request.user == message.user %}
+                <a href="{% url 'delete-message' message.id %}">
+                  <div class="thread__delete">
+                    <i class="fa-solid fa-xmark"></i>
+                  </div>
+                </a>
+                {% endif %}
+              </div>
+              <div class="room-message-body">
+                {{message.body}}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      <div class="room-message-box">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input name="body" placeholder="Write a comment..." />
+        </form>
+      </div>
+    </div>
+    <!-- Room End -->
+
+    <!--   Start -->
+    <!--  End -->
+  </div>
+<script src="script.js"></script>
+{% endblock content %}

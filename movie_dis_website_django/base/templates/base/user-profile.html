@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+  <div class="container">
+    
+    <div class = "col-md-2">
+    {% include 'base/movie_panel.html' %}
+    </div>
+  
+
+    
+    <div class="col-md-6">
+      <div class="profile">
+        <div class="profile-pic">
+          <div class="avatar avatar--large active">
+            <img src="{{user.avatar.url}}" />
+          </div>
+        </div>
+        <div class="profile-data">
+          <h3>{{user.name}}</h3>
+          <p>@{{user.username}}</p>
+          {% if request.user == user %}
+          <a href="{% url 'edit-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
+          {% endif %}
+        </div>
+        <div class="profile-desc">
+          <h3>About</h3>
+          <p>
+            {{user.bio}}
+          </p>
+        </div>
+      </div>
+
+      <div class="room-list-header">
+        <div>
+          <h2>Chat Rooms Hosted by {{user.name}}
+          </h2>
+        </div>
+      </div>
+      {% include 'base/rooms_element.html' %}
+
+
+    </div>
+  
+
+    <!-- Activities Start -->
+    {% include 'base/activity_element.html' %}
+    <!-- Activities End -->
+  </div>
+
+{% endblock content %}

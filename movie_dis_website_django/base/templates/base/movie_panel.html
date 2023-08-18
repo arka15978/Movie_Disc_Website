@@ -1,0 +1,19 @@
+<div class="movies-list">
+    <div class="movies-list-header">
+        <h4>LIST OF AVAILABLE MOVIES</h4>
+    </div>
+    <ul class="movies-list-body">
+        <li>
+            <a href="{% url 'home-page' %}" class="active">All <span>{{movies.count}}</span></a>
+        </li>
+        {% for movie in movies %}
+        <li>
+            <a href="{% url 'home-page' %}?q={{movie.name}}">{{movie.name}}<span>{{movie.room_set.all.count}}</span></a>
+        </li>
+        {% endfor %}
+
+    </ul>
+    <a class="btn btn--link" href="{% url 'search-movies' %}">
+        <button type="button" class="btn btn-primary browse-movies-btn">Browse Movies</button>
+    </a>
+</div>

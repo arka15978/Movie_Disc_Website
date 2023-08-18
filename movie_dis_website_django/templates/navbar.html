@@ -1,0 +1,50 @@
+{% load static %}
+<div class="header header--loggedIn">
+    <div class="container">
+        <a href="{% url 'home-page' %}" class="header__logo">
+            <i class="fa-solid fa-film"></i>
+            <h1>Movie Gossip</h1>
+        </a>
+        <form class="header-search" method="GET" action="{% url 'home-page' %}">
+            <label>
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input name="q" placeholder="Browse Rooms" />
+            </label>
+        </form>
+        <div class="header-menu">
+
+
+            <!-- Logged In -->
+            {% if request.user.is_authenticated %}
+            <div class="header-user">
+                <a href="{% url 'edit-user' %}">
+                    <div class="avatar avatar--medium active">
+                        <img src="{{request.user.avatar.url}}" />
+                    </div>
+                    <p>{{request.user.username}} <span>@{{request.user.username}}</span></p>
+                </a>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <i class="fa-solid fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'edit-user' %}" class="dropdown-link">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Edit profile</a>
+                        <a href="{% url 'signout' %}" class="dropdown-link">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Signout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            <!-- Not Logged In -->
+            <a href="{% url 'signin' %}">
+                <img src="{% static 'assets/character.svg' %}" />
+                <p>Signin</p>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
